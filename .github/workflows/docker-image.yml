@@ -31,7 +31,7 @@ jobs:
       - name: Snyk SCA
         continue-on-error: true
         run: |
-          cd bancked
+          cd backend
           snyk test
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
