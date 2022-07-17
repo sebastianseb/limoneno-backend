@@ -1,4 +1,4 @@
-name: Scan code build and deploy
+name: Build push AWS ECR and deploy to AWS EKS
 
 on:
   push:
@@ -9,16 +9,22 @@ on:
 jobs:
   
   build-push:
-    name: Build and Deploy to AWS ECR
+    name: Build and Deploy to AWS
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
+      - name: Remplazando variables
+        uses: datamonsters/replace-action
+        with:
+          files: 'eks/api-configmap.yml'
+          replacements: 'DB_PASS=${{ secrets.DB_PASS }},DB_NAME=${{ secrets.DB_NAME }},DB_USERNAME=${{ secrets.DB_USERNAME }},DB_HOST=${{ secrets.DB_HOST }},DB_PORT=${{ secrets.DB_PORT }},REDISURL=${{ secrets.REDISURL }},SERVER_NAME=${{ secrets.SERVER_NAME }}'
+          run: cat $pwd/eks/api-configmap.yml
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: us-east-1
+          aws-region: ${{ secrets.REGION }}
       - name: Login to Amazon ECR
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
@@ -42,9 +48,9 @@ jobs:
           --remote-name
           chmod +x kubectl
           sudo mv kubectl /usr/local/bin/
-          aws eks --region us-east-1 update-kubeconfig --name Limoneno
-          aws eks list-clusters
-          kubectl get nodes
+          aws eks --region ${{ secrets.REGION }} update-kubeconfig --name Limoneno
+
+
 
 #          echo ${{ secrets.KUBECONFIG }} | base64 --decode > kubeconfig.yaml
 
