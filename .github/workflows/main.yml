@@ -32,7 +32,7 @@ jobs:
       - name: Login to Amazon ECR
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
-      - name: Build, tag, and push image to Amazon ECR
+      - name: Build and push image to Amazon ECR
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY: limoneno-backend
@@ -42,8 +42,7 @@ jobs:
           echo "Pushing image to ECR..."
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
           echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
-      - name: Remplazar imagen docker en el deployment
-        run: |
+          echo "Replace image in deployment"
           imagen=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
           sed -i "s|IMAGE_ECR|${imagen}|" eks/limoneno-backend-deployment.yml
           cat eks/limoneno-backend-deployment.yml      
