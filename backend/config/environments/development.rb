@@ -4,6 +4,13 @@ Rails.application.configure do
   # In the development environment your application's code is reloaded on
   # every request. This slows down response time but is perfect for development
   # since you don't have to restart the web server when you make code changes.
+  config.hosts = [
+    IPAddr.new("0.0.0.0/0"), # All IPv4 addresses.
+    IPAddr.new("::/0"),      # All IPv6 addresses.
+    "localhost",             # The localhost reserved domain.
+    ENV["SERVER_HOST_NAME"]  # Allow this to be addressed when running in containers via docker-compose.yml.
+  ]
+
   config.cache_classes = false
 
   # Do not eager load code on boot.
