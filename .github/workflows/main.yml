@@ -14,11 +14,11 @@ jobs:
     steps:
       - uses: actions/checkout@master
       - name: Remplazando variables
-        uses: datamonsters/replace-action
+        uses: ./.github/actions/replace
         with:
           files: 'eks/api-configmap.yml'
           replacements: 'DB_PASS=${{ secrets.DB_PASS }},DB_NAME=${{ secrets.DB_NAME }},DB_USERNAME=${{ secrets.DB_USERNAME }},DB_HOST=${{ secrets.DB_HOST }},DB_PORT=${{ secrets.DB_PORT }},REDISURL=${{ secrets.REDISURL }},SERVER_NAME=${{ secrets.SERVER_NAME }}'
-          run: cat $pwd/eks/api-configmap.yml
+        run: cat $pwd/eks/api-configmap.yml
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
