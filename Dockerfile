@@ -21,6 +21,7 @@ RUN bundle install
 
 RUN export PATH=$PATH:/usr/local/bundle/bin/foreman
 
+RUN chmod +x cmd.sh
 #RUN rake db:create
 #RUN rake db:migrate
 #RUN rake db:seed
