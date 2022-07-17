@@ -60,7 +60,7 @@ jobs:
         run: |
           cd eks
           list_deployments=$(kubectl get deployment | wc -l)
-          if [ "$lits_deployments" -eq "0" ]; then
+          if [ "$list_deployments" -eq "0" ]; then
             kubectl apply -f .
           else
             kubectl delete deployment limoneno-backend
