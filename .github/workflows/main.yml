@@ -59,7 +59,7 @@ jobs:
       - name: Deploy eks
         run: |
           cd eks
-          lits_deployments=$(kubectl get deployment | wc -l)
+          list_deployments=$(kubectl get deployment | wc -l)
           if [ "$lits_deployments" -eq "0" ]; then
             kubectl apply -f .
           else
