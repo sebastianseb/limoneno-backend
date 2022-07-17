@@ -44,7 +44,8 @@ jobs:
           echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
       - name: Remplazar imagen docker en el deployment
         run: |
-          sed -i 's/IMAGE_ECR/$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG/g' "eks/limoneno-backend-deployment.yml"
+          imagen=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+          sed -i "s|ws|${imagen}|" eks/limoneno-backend-deployment.yml
           cat eks/limoneno-backend-deployment.yml      
       - name: Install and configure kubectl
         run: |
