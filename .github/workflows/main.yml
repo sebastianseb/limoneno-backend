@@ -23,10 +23,6 @@ jobs:
         with:
           files: 'eks/mysql-svc.yml'
           replacements: 'ENDPOINT_MSQL=${{ secrets.ENDPOINT_MSQL }}'      
-      - name: Verificar reemplazo de variables  
-        run: |
-          cat eks/api-configmap.yml
-          cat eks/mysql-svc.yml
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
@@ -47,12 +43,9 @@ jobs:
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
           echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
       - name: Remplazar imagen docker en el deployment
-        uses: datamonsters/replace-action@v2
-        with:
-          files: 'eks/limoneno-backend-deployment.yml'
-          replacements: 'IMAGE_ECR=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG'
-      - name: Verificar reemplazo imagen docker en deployment
-        run: cat eks/limoneno-backend-deployment.yml      
+        run: !
+          sed -i 's/IMAGE_ECR/$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG/g' "eks/limoneno-backend-deployment.yml"
+          cat eks/limoneno-backend-deployment.yml      
       - name: Install and configure kubectl
         run: |
           VERSION=$(curl --silent https://storage.googleapis.com/kubernetes-release/release/stable.txt)
