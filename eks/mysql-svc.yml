@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: mysql-service
+  name: mysql-service
+spec:
+  externalName: ENDPOINT_MSQL
+  selector:
+    app: mysql-service
+  type: ExternalName
+status:
+  loadBalancer: {}

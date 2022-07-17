@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment                 
+metadata:
+  name: limoneno-backend             
+spec:
+  replicas: 3                    
+  selector:
+    matchLabels:
+      app: limoneno-backend          
+  template:                      
+    metadata:
+      labels:                    
+        app: limoneno-backend 
+    spec:
+      containers:
+      - name: limoneno-backend
+        image: IMAGE_ECR
+        ports:
+          - containerPort: 5000  
+        envFrom:
+          - configMapRef:
+              name: api-config
+          
