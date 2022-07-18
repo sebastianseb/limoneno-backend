@@ -2,7 +2,8 @@ FROM ruby:2.6.3
 
 WORKDIR /app
 
-COPY ./backend /app/
+COPY ./backend /api/
+#COPY ./backend /app/
 #COPY ./ /app/
 
 RUN apt-get update && apt-get install dos2unix -y
