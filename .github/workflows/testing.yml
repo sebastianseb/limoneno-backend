@@ -23,17 +23,13 @@ jobs:
       uses: ruby/setup-ruby@359bebbc29cbe6c87da6bc9ea3bc930432750108
       with:
         ruby-version: '2.6.3'
-    - name: Install dependencies
+    - name: Install dependencies and run tests
       run: |
         cd backend
         bundle update mimemagic
         rm -f Gemfile.lock
         bundle install
-    - name: Run tests
-      run: | 
-       cd backend
-       pwd
-       bundle exec rake
+        bundle exec rake
     
     - name: SonarCloud Scan
       uses: SonarSource/sonarcloud-github-action@master
