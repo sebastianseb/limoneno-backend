@@ -8,7 +8,7 @@ on:
 jobs:
 
   Sonarcloud:
-    name: SonarCloud
+    name: Code Quality
     runs-on: ubuntu-latest
 
     steps:
