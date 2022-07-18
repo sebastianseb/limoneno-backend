@@ -1,8 +1,7 @@
 name: Code Scan
 
 on:
-  #push:
-  #  branches: [ "main" ]
+
   pull_request:
     branches: [ "main" ]
 
@@ -14,6 +13,11 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+    - name: Remplazando sonar-project.properties
+      uses: datamonsters/replace-action@v2
+      with:
+        files: 'sonar-project.properties'
+        replacements: 'SONAR_PROJECTKEY=${{ secrets.SONAR_PROJECTKEY }},SONAR_ORGANIZATION=${{ secrets.SONAR_ORGANIZATION }}'
     - name: SonarCloud Scan
       uses: SonarSource/sonarcloud-github-action@master
       env:

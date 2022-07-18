@@ -3,8 +3,6 @@ name: Build push AWS ECR and deploy to AWS EKS
 on:
   push:
     branches: [ "main" ]
-  #pull_request:
-    #branches: [ "main" ]
 
 jobs:
   
