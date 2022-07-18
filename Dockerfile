@@ -1,6 +1,7 @@
 FROM ruby:2.6.3
 
-WORKDIR /app
+#WORKDIR /app
+WORKDIR /api
 
 COPY ./backend /api/
 #COPY ./backend /app/
