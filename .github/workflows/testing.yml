@@ -26,6 +26,7 @@ jobs:
     - name: Install dependencies
       run: |
         cd backend
+        rm -f Gemfile.lock
         bundle update mimemagic
         bundle install
     - name: Run tests
