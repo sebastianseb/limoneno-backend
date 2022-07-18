@@ -29,7 +29,9 @@ jobs:
         bundle update mimemagic
         bundle install
     - name: Run tests
-      run: bundle exec rake
+      run: | 
+       pwd
+       bundle exec rake
     
     - name: SonarCloud Scan
       uses: SonarSource/sonarcloud-github-action@master
