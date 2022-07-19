@@ -18,19 +18,7 @@ jobs:
       with:
         files: 'sonar-project.properties'
         replacements: 'SONAR_PROJECTKEY=${{ secrets.SONAR_PROJECTKEY }},SONAR_ORGANIZATION=${{ secrets.SONAR_ORGANIZATION }}'
-    
-    - name: Set up Ruby
-      uses: ruby/setup-ruby@359bebbc29cbe6c87da6bc9ea3bc930432750108
-      with:
-        ruby-version: '2.6.3'
-    - name: Install dependencies and run tests
-      run: |
-        cd backend
-        bundle update mimemagic
-        rm -f Gemfile.lock
-        bundle install
-        bundle exec rake
-    
+        
     - name: SonarCloud Scan
       uses: SonarSource/sonarcloud-github-action@master
       env:
