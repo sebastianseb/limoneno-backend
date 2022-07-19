@@ -58,7 +58,7 @@ jobs:
         run: |
           cd eks
           list_deployments=$(kubectl get deployment)
-          if [[ "$list_deployments" == *"limoneno-frontend"* ]]; then
+          if [[ "$list_deployments" == *"limoneno-backend"* ]]; then
             kubectl apply -f .
           else
             kubectl delete deployment limoneno-backend
