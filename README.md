@@ -1,6 +1,6 @@
 ![limoneno](https://github.com/LemontechSA/limoneno/blob/master/frontend/src/assets/png/limoneno.png?raw=true)
 
-***LET IA training tool***
+
 
 ## Comienzo
 
