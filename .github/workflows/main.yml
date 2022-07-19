@@ -59,11 +59,11 @@ jobs:
           cd eks
           list_deployments=$(kubectl get deployment)
           if [[ "$list_deployments" == *"limoneno-backend"* ]]; then
-            kubectl apply -f .
-          else
             kubectl delete deployment limoneno-backend
             kubectl delete services limoneno-backend
             kubectl delete configmap api-config
+            kubectl apply -f .
+          else
             kubectl apply -f .
           fi
 
